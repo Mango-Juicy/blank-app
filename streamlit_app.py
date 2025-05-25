@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 COIN, WS_URL       = "BTC", "wss://api.hyperliquid.xyz/ws"
-INTERVAL, SHIFT_SEC = "3min", 30
+INTERVAL, SHIFT_SEC = "5min", 60
 EPS, CVD_EPS        = 1e-8, 1e-3         # per evitare divisioni / segni instabili
 RATIO_STRONG = 1
 trades, lock        = [], threading.Lock()
@@ -45,7 +45,7 @@ def classify(delta_p, delta_cvd, ratio):
         return "Neutral"    
 
     if ratio > RATIO_STRONG:
-        return "Stong Long" if delta_p > 0 else "Stong Short" # Movimento coerente
+        return "Strong Long" if delta_p > 0 else "Strong Short" # Movimento coerente
     elif ratio > 0:
         return "Assorb, short?" if delta_p > 0 else "Assorb, long?" # Assorbimento dei buy/sell
     elif ratio < 0:
@@ -85,7 +85,7 @@ def build_frames(raw, interval):
 
 # ════════════ Streamlit UI ════════════
 st.set_page_config(layout="wide")
-st.title("BTC (3 min) — Price, CVD & Efficiency Signal")
+st.title(f"BTC ({INTERVAL}) — Price, CVD & Efficiency Signal")
 
 placeholder = st.empty()
 
