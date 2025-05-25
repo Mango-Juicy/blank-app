@@ -47,7 +47,7 @@ def classify(delta_p, delta_cvd, ratio):
     if ratio > RATIO_STRONG:
         return "Stong Long" if delta_p > 0 else "Stong Short" # Movimento coerente
     elif ratio > 0:
-        return "Assorb, long?" if delta_p > 0 else "Assorb, short?" # Assorbimento dei buy/sell
+        return "Assorb, short?" if delta_p > 0 else "Assorb, long?" # Assorbimento dei buy/sell
     elif ratio < 0:
         return "Invert, short?" if delta_p > 0 else "Invert, long?"  # Inversione
     else:
